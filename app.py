@@ -54,12 +54,15 @@ is_filtered = (len(selected_freqs) < len(freq_options) or
 st.markdown(f"**{len(filtered_df)} responses**" + (" *(filtered)*" if is_filtered else ""))
 st.markdown("---")
 
-# Question definitions
+# Question definitions - organized by section
 questions = {
+    # AI Usage
     "AI Usage Frequency": {
         "col": "How often are you using AI PROFESSIONALLY (i.e., for work purposes in CME/CPD)?",
         "order": ["Daily", "Weekly", "A few times a month", "A few times a year", "Never"]
     },
+
+    # AI Use by Area
     "Content Creation": {
         "col": "Do you use AI for your work in content creation and writing?",
         "order": ["Yes", "No"]
@@ -88,11 +91,77 @@ questions = {
         "col": "Do you use AI for your work in leadership and planning?",
         "order": ["Yes", "No"]
     },
+
+    # Training
+    "Formal AI Training": {
+        "col": "Have you received any formal AI training?",
+        "order": ["Yes", "No"]
+    },
+    "Training from Employer": {
+        "col": "If yes, was it provided by your employer?",
+        "order": None
+    },
+    "Hours of AI Training": {
+        "col": "How many hours of AI training have you had?",
+        "order": None
+    },
+
+    # Organizational Context
+    "Restrictions on AI Use": {
+        "col": "In your CME/CPD role (i.e., at work), are you restricted from using AI in any way?",
+        "order": None
+    },
+    "Following Restrictions": {
+        "col": "To what extent do you follow all the restrictions on your work use of AI?",
+        "order": None
+    },
+    "Organizational AI Policy": {
+        "col": "Does your organization have a formal policy on the appropriate use of AI?(If you're an independent contractor, answer based on your business practice.)",
+        "order": None
+    },
+    "Custom AI Tools": {
+        "col": "Does your organization currently use/is developing any AI tools that were custom-developed in-house or specifically built for your organization (as opposed to standard, off-the-shelf AI tools such as Copilot)?",
+        "order": None
+    },
+    "AI Initiatives": {
+        "col": "Has your organization launched any AI-based initiatives or AI pilot projects designed to improve efficiency, reduce costs, or create new capabilities?",
+        "order": None
+    },
+
+    # Mindset & Concerns
+    "AI Mindset": {
+        "col": "How would you describe your mindset about the role of AI tools in CME/CPD?",
+        "order": None
+    },
+
+    # Demographics
+    "Age": {
+        "col": "What is your age?",
+        "order": None
+    },
+    "Organization Type": {
+        "col": "What type of organization do you work for?",
+        "order": None
+    },
+    "Years in CE/CPD": {
+        "col": "How many years have you worked in CE/CPD?",
+        "order": None
+    },
+    "Current Role": {
+        "col": "What is your current role in CME/CPD?",
+        "order": None
+    },
 }
 
 def render_question(title, col, order=None):
     """Render a SurveyMonkey-style question breakdown."""
+    if col not in filtered_df.columns:
+        return
+
     counts = filtered_df[col].value_counts()
+    if counts.empty:
+        return
+
     total = counts.sum()
 
     # Build dataframe with percentages
@@ -102,6 +171,9 @@ def render_question(title, col, order=None):
             count = counts[val]
             pct = (count / total) * 100
             data.append({"Response": val, "Count": count, "Percent": pct})
+
+    if not data:
+        return
 
     chart_df = pd.DataFrame(data)
 
