@@ -151,6 +151,10 @@ questions = {
         "col": "What is your current role in CME/CPD?",
         "order": None
     },
+    "Participate": {
+        "col": "How would you like to participate? (Check all that apply)",
+        "order": None
+    },
 }
 
 def render_question(title, col, order=None):
