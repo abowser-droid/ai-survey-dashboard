@@ -2,13 +2,29 @@
 
 Survey data explorer — Excel → SQLite → Streamlit dashboard.
 
-## Quick Start
+## Live App
+
+**https://ai-survey-dashboard.streamlit.app**
+
+## Quick Start (Local)
 
 ```bash
 source .venv/bin/activate
 streamlit run app.py
 open http://localhost:8501
 ```
+
+## Deployment
+
+Hosted on Streamlit Community Cloud. Auto-deploys from GitHub.
+
+```bash
+# Push changes to redeploy
+git add -A && git commit -m "Update" && git push
+```
+
+- **Repo:** https://github.com/abowser-droid/ai-survey-dashboard
+- **App:** https://ai-survey-dashboard.streamlit.app
 
 ## Data
 
@@ -50,7 +66,8 @@ open http://localhost:8501
 
 - `app.py` — Streamlit dashboard
 - `survey.db` — SQLite database
-- `.venv/` — Python env (pandas, streamlit, plotly, datasette)
+- `requirements.txt` — Dependencies for cloud deploy
+- `.venv/` — Local Python env (pandas, streamlit, plotly, datasette)
 
 ## Adding More Filters
 

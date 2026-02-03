@@ -2,7 +2,13 @@
 
 Interactive dashboard for the 2025 Alliance AI Survey. Converts Excel to SQLite, visualizes with Streamlit.
 
-## Quick Start
+## Live App
+
+**https://ai-survey-dashboard.streamlit.app**
+
+Share this link with collaborators — filters work for everyone.
+
+## Local Development
 
 ```bash
 source .venv/bin/activate
@@ -36,14 +42,27 @@ Charts and data update instantly when you change filters.
 | `app.py` | Streamlit dashboard |
 | `survey.db` | SQLite database (200 rows, 114 columns) |
 | `2025 Alliance AI Survey Results-deidentified.xlsx` | Original Excel source |
-| `.venv/` | Python environment |
+| `.venv/` | Python environment (local only) |
+| `requirements.txt` | Dependencies for Streamlit Cloud |
 
-## Setup (First Time)
+## Setup (First Time Local)
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pandas openpyxl streamlit plotly datasette
+```
+
+## Deployment
+
+Hosted on Streamlit Community Cloud. Deploys automatically from `main` branch.
+
+- **Repo:** https://github.com/abowser-droid/ai-survey-dashboard
+- **App:** https://ai-survey-dashboard.streamlit.app
+
+To redeploy after changes:
+```bash
+git add -A && git commit -m "Update" && git push
 ```
 
 ## Alternative: SQL Queries
