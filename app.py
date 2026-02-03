@@ -18,6 +18,11 @@ df = load_data()
 # Sidebar filters
 st.sidebar.header("Filters")
 
+# Reset button
+if st.sidebar.button("🔄 Reset All Filters"):
+    st.session_state.clear()
+    st.rerun()
+
 freq_col = "How often are you using AI PROFESSIONALLY (i.e., for work purposes in CME/CPD)?"
 freq_options = sorted(df[freq_col].dropna().unique().tolist())
 selected_freqs = st.sidebar.multiselect("AI Usage Frequency", freq_options, default=freq_options)
@@ -34,15 +39,16 @@ data_col = "Do you use AI for your work in learner data and outcomes analysis?"
 data_options = sorted(df[data_col].dropna().unique().tolist())
 selected_data = st.sidebar.multiselect("Uses AI: Data Analysis", data_options, default=data_options)
 
-# Apply filters
+# Apply filters - only filter if user has deselected something (not all options selected)
+# This ensures rows with null values aren't excluded when showing "all"
 filtered_df = df.copy()
-if selected_freqs:
+if selected_freqs and len(selected_freqs) < len(freq_options):
     filtered_df = filtered_df[filtered_df[freq_col].isin(selected_freqs)]
-if selected_content:
+if selected_content and len(selected_content) < len(content_options):
     filtered_df = filtered_df[filtered_df[content_col].isin(selected_content)]
-if selected_research:
+if selected_research and len(selected_research) < len(research_options):
     filtered_df = filtered_df[filtered_df[research_col].isin(selected_research)]
-if selected_data:
+if selected_data and len(selected_data) < len(data_options):
     filtered_df = filtered_df[filtered_df[data_col].isin(selected_data)]
 
 # Header
