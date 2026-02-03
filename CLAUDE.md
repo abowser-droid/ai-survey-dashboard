@@ -40,6 +40,17 @@ git add -A && git commit -m "Update" && git push
 - Expandable data tables
 - Raw response data at bottom
 
+## Questions Displayed
+
+22 questions across these categories:
+- AI Usage (1)
+- AI Use by Area (7)
+- Training (3)
+- Organizational Context (5)
+- Mindset (1)
+- Demographics (4)
+- Participation (1)
+
 ## Current Filters
 
 | Filter | Column |
