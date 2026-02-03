@@ -214,7 +214,7 @@ def render_question(title, col, order=None):
     st.plotly_chart(fig, use_container_width=True)
 
     # Data table underneath
-    with st.expander("View data"):
+    with st.expander("View data", expanded=True):
         display_df = chart_df.copy()
         display_df["Percent"] = display_df["Percent"].apply(lambda x: f"{x:.1f}%")
         st.dataframe(display_df, hide_index=True, use_container_width=True)
